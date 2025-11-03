@@ -8,8 +8,8 @@ import SupportIcon from './icons/IconSupport.vue'
 
 const movies = [
   { id: 1, title: "Demon Slayer: Kimetsu no Yaiba Infinity Castle", year: 2025 , genre: "Anime/Action/Adventure/Fantasy" },
-  { id: 2, title: "Interstellar", year: 2014 , genre: "Sci-Fi" },
-  { id: 3, title: "The Dark Knight", year: 2008 , genre: "Action" },
+  { id: 2, title: "Chainsaw Man - The Movie: Reze Arc", year: 2025 , genre: "Anime/Action/Fantasy" },
+  { id: 3, title: "Deadpool & Wolverine", year: 2024 , genre: "Action/Comedy" },
 ];
 </script>
 
