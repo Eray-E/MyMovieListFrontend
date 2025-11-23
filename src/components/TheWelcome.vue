@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import axios from 'axios'
+import { ref, onMounted } from 'vue'
+
 import WelcomeItem from './WelcomeItem.vue'
 import DocumentationIcon from './icons/IconDocumentation.vue'
 import ToolingIcon from './icons/IconTooling.vue'
@@ -6,11 +9,26 @@ import EcosystemIcon from './icons/IconEcosystem.vue'
 import CommunityIcon from './icons/IconCommunity.vue'
 import SupportIcon from './icons/IconSupport.vue'
 
-const movies = [
+const dummymovies = [
   { id: 1, title: "Demon Slayer: Kimetsu no Yaiba Infinity Castle", year: 2025 , genre: "Anime/Action/Adventure/Fantasy" },
   { id: 2, title: "Chainsaw Man - The Movie: Reze Arc", year: 2025 , genre: "Anime/Action/Fantasy" },
   { id: 3, title: "Deadpool & Wolverine", year: 2024 , genre: "Action/Comedy" },
-];
+]
+
+const movies = ref<Movie[]>([])
+
+async function loadtodos () {
+  const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL // 'http://localhost:8080' in dev mode
+  const endpoint = baseUrl + '/todos'
+  try {
+  const response: AxiosResponse = await axios.get(endpoint);
+  const responseData: Todos[] = response.data;
+  items.value = responseData
+  } catch (error) {
+      console.error("Fehler beim Laden:", error)
+    }
+}
+
 </script>
 
 <template>
