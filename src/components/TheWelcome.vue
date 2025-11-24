@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import axios from 'axios'
+import type { AxiosResponse } from 'axios'
 import { ref, onMounted } from 'vue'
 
 import WelcomeItem from './WelcomeItem.vue'
@@ -9,25 +10,38 @@ import EcosystemIcon from './icons/IconEcosystem.vue'
 import CommunityIcon from './icons/IconCommunity.vue'
 import SupportIcon from './icons/IconSupport.vue'
 
+interface Movie {
+  title: string
+  genre: string
+  releaseYear: number
+  watched: boolean
+}
+
 const dummymovies = [
-  { id: 1, title: "Demon Slayer: Kimetsu no Yaiba Infinity Castle", year: 2025 , genre: "Anime/Action/Adventure/Fantasy" },
-  { id: 2, title: "Chainsaw Man - The Movie: Reze Arc", year: 2025 , genre: "Anime/Action/Fantasy" },
-  { id: 3, title: "Deadpool & Wolverine", year: 2024 , genre: "Action/Comedy" },
+  { id: 1, title: "Demon Slayer: Kimetsu no Yaiba Infinity Castle", reeleaseYear: 2025 , genre: "Anime/Action/Adventure/Fantasy" },
+  { id: 2, title: "Chainsaw Man - The Movie: Reze Arc", releaseYear: 2025 , genre: "Anime/Action/Fantasy" },
+  { id: 3, title: "Deadpool & Wolverine", releaseYear: 2024 , genre: "Action/Comedy" },
 ]
 
-const movies = ref<Movie[]>([])
+const movies = ref<Movie[]>([...dummymovies])
 
-async function loadtodos () {
-  const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL // 'http://localhost:8080' in dev mode
-  const endpoint = baseUrl + '/todos'
+const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL
+const endpoint = baseUrl + '/todos'
+
+async function loadMovies () {
   try {
-  const response: AxiosResponse = await axios.get(endpoint);
-  const responseData: Todos[] = response.data;
-  items.value = responseData
+    const response: AxiosResponse<Movie[]> = await axios.get(endpoint)
+    movies.value = response.data
+    console.log('Movies vom Backend:', todos.value)
   } catch (error) {
-      console.error("Fehler beim Laden:", error)
-    }
+    console.error('Fehler beim Laden:', error)
+  }
 }
+
+onMounted(() => {
+  loadTodos()
+})
+
 
 </script>
 
@@ -46,9 +60,9 @@ async function loadtodos () {
 
       <tbody>
         <!-- v-for-Schleife -->
-        <tr v-for="m in movies" :key="m.id">
+        <tr v-for="m in movies" :key="m.title">
           <td>{{ m.title }}</td>
-          <td>{{ m.year }}</td>
+          <td>{{ m.releaseYear }}</td>
           <td>{{ m.genre }}</td>
         </tr>
       </tbody>
