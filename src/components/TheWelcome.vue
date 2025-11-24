@@ -18,7 +18,7 @@ interface Movie {
 }
 
 const dummymovies = [
-  { id: 1, title: "Demon Slayer: Kimetsu no Yaiba Infinity Castle", reeleaseYear: 2025 , genre: "Anime/Action/Adventure/Fantasy" },
+  { id: 1, title: "Demon Slayer: Kimetsu no Yaiba Infinity Castle", releaseYear: 2025 , genre: "Anime/Action/Adventure/Fantasy" },
   { id: 2, title: "Chainsaw Man - The Movie: Reze Arc", releaseYear: 2025 , genre: "Anime/Action/Fantasy" },
   { id: 3, title: "Deadpool & Wolverine", releaseYear: 2024 , genre: "Action/Comedy" },
 ]
