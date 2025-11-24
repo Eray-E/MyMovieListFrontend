@@ -23,23 +23,25 @@ const dummymovies = [
   { id: 3, title: "Deadpool & Wolverine", releaseYear: 2024 , genre: "Action/Comedy" },
 ]
 
-const movies = ref<Movie[]>([...dummymovies])
+const movies = ref<Movie[]>([])
 
 const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL
 const endpoint = baseUrl + '/todos'
 
 async function loadMovies () {
   try {
+  console.log('baseUrl:', baseUrl)
+  console.log('endpoint:', endpoint)
     const response: AxiosResponse<Movie[]> = await axios.get(endpoint)
     movies.value = response.data
-    console.log('Movies vom Backend:', todos.value)
+    console.log('Movies vom Backend:', movies.value)
   } catch (error) {
     console.error('Fehler beim Laden:', error)
   }
 }
 
 onMounted(() => {
-  loadTodos()
+  loadMovies()
 })
 
 
