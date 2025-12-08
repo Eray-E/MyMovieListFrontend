@@ -26,7 +26,7 @@ const dummymovies = [
 const movies = ref<Movie[]>([])
 
 const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL
-const endpoint = baseUrl + '/todos'
+const endpoint = baseUrl + '/movies'
 
 async function loadMovies () {
   try {
