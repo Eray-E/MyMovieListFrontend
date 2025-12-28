@@ -1,27 +1,9 @@
 <script setup lang="ts">
-import axios from 'axios'
-import type { AxiosResponse } from 'axios'
+import { getMovies } from "@/services/movieService";
 import { ref, onMounted } from 'vue'
 
-import WelcomeItem from './WelcomeItem.vue'
-import DocumentationIcon from './icons/IconDocumentation.vue'
-import ToolingIcon from './icons/IconTooling.vue'
-import EcosystemIcon from './icons/IconEcosystem.vue'
-import CommunityIcon from './icons/IconCommunity.vue'
-import SupportIcon from './icons/IconSupport.vue'
+import type { Movie } from "@/types/Movie";
 
-interface Movie {
-  title: string
-  genre: string
-  releaseYear: number
-  watched: boolean
-}
-
-const dummymovies = [
-  { id: 1, title: "Demon Slayer: Kimetsu no Yaiba Infinity Castle", releaseYear: 2025 , genre: "Anime/Action/Adventure/Fantasy" },
-  { id: 2, title: "Chainsaw Man - The Movie: Reze Arc", releaseYear: 2025 , genre: "Anime/Action/Fantasy" },
-  { id: 3, title: "Deadpool & Wolverine", releaseYear: 2024 , genre: "Action/Comedy" },
-]
 
 const movies = ref<Movie[]>([])
 
@@ -32,7 +14,7 @@ async function loadMovies () {
   try {
   console.log('baseUrl:', baseUrl)
   console.log('endpoint:', endpoint)
-    const response: AxiosResponse<Movie[]> = await axios.get(endpoint)
+    const response = await getMovies();
     movies.value = response.data
     console.log('Movies vom Backend:', movies.value)
   } catch (error) {
@@ -57,6 +39,7 @@ onMounted(() => {
           <th>Title</th>
           <th>Year</th>
           <th>Genre</th>
+          <th>Status</th>
         </tr>
       </thead>
 
@@ -66,6 +49,7 @@ onMounted(() => {
           <td>{{ m.title }}</td>
           <td>{{ m.releaseYear }}</td>
           <td>{{ m.genre }}</td>
+          <td>{{ m.status }}</td>
         </tr>
       </tbody>
     </table>
