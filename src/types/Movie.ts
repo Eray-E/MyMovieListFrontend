@@ -5,5 +5,5 @@ export interface Movie {
   releaseYear: number;
   status: "PLANNED"| "COMPLETED" | "DROPPED";
   rating?: number | null;
-  favorite: boolean;
+  favorite: false;
 }
