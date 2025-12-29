@@ -24,6 +24,7 @@ async function submit() {
     releaseYear: releaseYear.value,
     status: "PLANNED",
     rating: null,
+    favorite: false,
   };
 
   await addMovie(movie);
