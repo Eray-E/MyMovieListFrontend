@@ -54,10 +54,14 @@ async function toggleFavorite() {
 <template>
   <tr>
     <!-- FAV ⭐ -->
-    <td>
-      <button @click="toggleFavorite" class="star">
-        <span v-if="movie.favorite">⭐</span>
-        <span v-else>☆</span>
+    <td class="fav-cell">
+      <button
+        class="star"
+        :class="{ active: movie.favorite }"
+        @click="toggleFavorite"
+        title="Favorite"
+      >
+        {{ movie.favorite ? "★" : "☆" }}
       </button>
     </td>
 
@@ -88,8 +92,10 @@ async function toggleFavorite() {
     </td>
 
     <!-- DELETE -->
-    <td>
-      <button @click="remove">🗑</button>
+    <td class="delete-cell">
+      <button class="delete-btn" @click="remove" title="Delete movie">
+        🗑
+      </button>
     </td>
   </tr>
 </template>
@@ -110,18 +116,35 @@ button {
   font-size: 1.1rem;
 }
 
-button:hover {
-  color: #ff5f5f;
+.delete-btn {
+  color: #777;
+  font-size: 1.2rem;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.delete-btn:hover {
+  color: #ff5f5f;           /* rot = Gefahr */
+  transform: scale(1.2);
 }
 
 .star {
-  background: none;
-  border: none;
-  font-size: 1.2rem;
-  cursor: pointer;
+  color: #555;              /* sichtbarer als schwarz */
+  font-size: 1.3rem;
+  transition: color 0.2s, transform 0.2s;
 }
 
 .star:hover {
-  transform: scale(1.1);
+  color: #f5c542;           /* gold beim Hover */
+  transform: scale(1.2);
+}
+
+.star.active {
+  color: #f5c542;           /* dauerhaft gold */
+  text-shadow: 0 0 6px rgba(245, 197, 66, 0.6);
+}
+
+.fav-cell,
+.delete-cell {
+  text-align: center;
 }
 </style>

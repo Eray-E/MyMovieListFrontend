@@ -16,47 +16,41 @@ async function loadMovies() {
 const sortedMovies = computed(() => {
   return [...movies.value].sort((a, b) => {
 
-    if (sortBy.value === "title") {
-      return a.title.localeCompare(b.title);
-    }
-
-    if (sortBy.value === "releaseYear") {
-      return b.releaseYear - a.releaseYear;
-    }
-
-    if (sortBy.value === "rating") {
-      return (b.rating ?? 0) - (a.rating ?? 0);
-    }
-
     if (sortBy.value === "favorite") {
       return Number(b.favorite) - Number(a.favorite);
     }
-
-    return 0;
+    if (sortBy.value === "rating") {
+      return (b.rating ?? 0) - (a.rating ?? 0);
+    }
+    if (sortBy.value === "releaseYear") {
+      return b.releaseYear - a.releaseYear;
+    }
+    return a.title.localeCompare(b.title);
   });
 });
-
 
 onMounted(loadMovies);
 </script>
 
 <template>
   <div>
-    <h2>My Movie Watchlist</h2>
+    <div class="page"></div>
+    <div class="watchlist">
+      <h1 class="title">My Movie Watchlist</h1>
 
-    <!-- Formular -->
-    <MovieForm @added="loadMovies" />
+    <div class="add-bar">
+      <MovieForm @added="loadMovies" />
+    </div>
 
-    <label>
-      Sort by:
-      <select v-model="sortBy">
-        <option value="title">Title</option>
-        <option value="releaseYear">Year</option>
-        <option value="rating">Rating</option>
-        <option value="favorite">Favorite</option>
-      </select>
-    </label>
-
+      <div class="sort-row">
+        <span class="sort-label">Sort by</span>
+        <select v-model="sortBy" class="table-input">
+          <option value="title">Title</option>
+          <option value="releaseYear">Year</option>
+          <option value="rating">Rating</option>
+          <option value="favorite">Favorite</option>
+        </select>
+      </div>
 
     <table>
       <thead>
@@ -68,7 +62,6 @@ onMounted(loadMovies);
         <th>Status</th>
         <th>Rating</th>
         <th>Delete</th>
-        <th></th>
       </tr>
       </thead>
 
@@ -82,5 +75,81 @@ onMounted(loadMovies);
       />
       </tbody>
     </table>
+      </div>
   </div>
 </template>
+
+<style scoped>
+.page {
+  display: flex;
+  justify-content: center; /* bleibt mittig */
+  align-items: flex-start;
+  padding-top: 2rem;
+}
+.watchlist {
+  width: 100%;
+  max-width: 1000px;
+
+  margin-left: 12rem;
+}
+.title{
+  background-color: #262626;
+  color: #9fd3c7;
+  font-size: 1.8rem;
+  font-weight: 500;
+  text-align: center;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border-radius: 6px;
+}
+
+.add-bar{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  background-color: #262626;
+  color: #9fd3c7;
+  padding: 0.5rem;
+}
+
+td {
+  padding: 0.5rem;
+  border-bottom: 1px solid #2f2f2f;
+}
+
+.sort-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.sort-label {
+  color: #9fd3c7;
+  font-size: 0.9rem;
+}
+
+
+.table-input {
+  background-color: #262626;
+  color: #9fd3c7;
+  border: 1px solid #2f2f2f;
+  padding: 0.45rem 0.6rem;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.table-input:focus {
+  outline: none;
+  border-color: #9fd3c7;
+  background-color: #2a2a2a;
+}
+</style>
