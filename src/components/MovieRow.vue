@@ -13,6 +13,7 @@ const emit = defineEmits<{
 }>();
 
 async function onStatusChange(event: Event) {
+try {
   const target = event.target as HTMLSelectElement;
 
   await updateMovie(props.movie.id!, {
@@ -21,9 +22,13 @@ async function onStatusChange(event: Event) {
   });
 
   emit("updated");
+}catch (error) {
+  console.error("status update failed", error);
+}
 }
 
 async function onRatingChange(event: Event) {
+try {
   const target = event.target as HTMLSelectElement;
 
   await updateMovie(props.movie.id!, {
@@ -32,21 +37,33 @@ async function onRatingChange(event: Event) {
   });
 
   emit("updated");
+}catch (error) {
+  console.error("rating update failed", error);
+}
 }
 
 async function remove() {
+try {
+  console.log("REMOVE CALLED", props.movie.id);
   if (!props.movie.id) return;
   await deleteMovie(props.movie.id);
   emit("deleted");
+}catch (error) {
+  console.error("delete failed", error);
+}
 }
 
 async function toggleFavorite() {
-  await updateMovie(props.movie.id!, {
-    ...props.movie,
-    favorite: !props.movie.favorite,
-  });
+  try {
+    await updateMovie(props.movie.id!, {
+      ...props.movie,
+      favorite: !props.movie.favorite,
+    });
 
-  emit("updated");
+    emit("updated");
+  } catch (error) {
+    console.error("Failed to update favorite", error);
+  }
 }
 
 </script>
@@ -93,7 +110,7 @@ async function toggleFavorite() {
 
     <!-- DELETE -->
     <td class="delete-cell">
-      <button class="delete-btn" @click="remove" title="Delete movie">
+      <button class="delete-btn" data-testid="delete-btn" @click="remove" title="Delete movie">
         🗑
       </button>
     </td>

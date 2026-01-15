@@ -9,8 +9,12 @@ const movies = ref<Movie[]>([]);
 const sortBy = ref<"title" | "releaseYear" | "rating" | "favorite">("title");
 
 async function loadMovies() {
+  try {
   const response = await getMovies();
   movies.value = response.data;
+} catch (error) {
+  console.error("Failed to load movies", error);
+  }
 }
 
 const sortedMovies = computed(() => {
