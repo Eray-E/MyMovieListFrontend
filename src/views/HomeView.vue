@@ -58,6 +58,22 @@ onMounted(loadMovies);
 
     <table>
       <thead>
+      <!-- 📊 STATS BUTTON -->
+      <tr>
+        <th colspan="6"></th> <!-- leer über Fav–Rating -->
+
+        <th class="stats-header">
+          <button
+            class="stats-btn"
+            @click="$router.push('/stats')"
+            title="Show statistics"
+          >
+            📊 Stats
+          </button>
+        </th>
+      </tr>
+
+      <!-- ⭐ NORMALE HEADER-ZEILE -->
       <tr>
         <th>Fav</th>
         <th>Title</th>
@@ -155,5 +171,24 @@ td {
   outline: none;
   border-color: #9fd3c7;
   background-color: #2a2a2a;
+}
+
+.stats-header {
+  text-align: center;
+  padding-bottom: 0.25rem;
+}
+
+.stats-btn {
+  background: transparent;
+  color: #9fd3c7;
+  border: 1px solid #3a3a3a;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.stats-btn:hover {
+  background: #2a2a2a;
 }
 </style>
