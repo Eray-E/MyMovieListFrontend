@@ -240,7 +240,7 @@ const ratedMovies = computed(() =>
     </RouterLink>
 
     <h1 class="title">
-      📊 MyMovielist Statistics
+      📊 MyMovieList Statistics
     </h1>
 
     <div class="charts">

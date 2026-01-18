@@ -40,7 +40,7 @@ onMounted(loadMovies);
   <div>
     <div class="page"></div>
     <div class="watchlist">
-      <h1 class="title">My Movie Watchlist</h1>
+      <h1 class="title">My MovieList</h1>
 
     <div class="add-bar">
       <MovieForm @added="loadMovies" />
@@ -103,7 +103,7 @@ onMounted(loadMovies);
   width: 100%;
   max-width: 1000px;
 
-  margin-left: 12rem;
+  margin-left: 10rem;
 }
 .title{
   background-color: #262626;
@@ -114,6 +114,7 @@ onMounted(loadMovies);
   padding: 1rem;
   margin-bottom: 1.5rem;
   border-radius: 6px;
+  width: 100%;
 }
 
 .add-bar{
