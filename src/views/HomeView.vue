@@ -46,32 +46,25 @@ onMounted(loadMovies);
       <MovieForm @added="loadMovies" />
     </div>
 
-      <div class="sort-row">
-        <span class="sort-label">Sort by</span>
-        <select v-model="sortBy" class="table-input">
-          <option value="title">Title</option>
-          <option value="releaseYear">Year</option>
-          <option value="rating">Rating</option>
-          <option value="favorite">Favorite</option>
-        </select>
+      <div class="list-toolbar">
+        <div class="sort-row">
+          <span class="sort-label">Sort by</span>
+          <select v-model="sortBy" class="table-input">
+            <option value="title">Title</option>
+            <option value="releaseYear">Year</option>
+            <option value="rating">Rating</option>
+            <option value="favorite">Favorite</option>
+          </select>
+        </div>
+
+        <RouterLink to="/stats" class="stats-btn">
+          📊 Stats
+        </RouterLink>
       </div>
 
-    <table>
-      <thead>
-      <!-- 📊 STATS BUTTON -->
-      <tr>
-        <th colspan="6"></th> <!-- leer über Fav–Rating -->
+      <table>
+        <thead>
 
-        <th class="stats-header">
-          <button
-            class="stats-btn"
-            @click="$router.push('/stats')"
-            title="Show statistics"
-          >
-            📊 Stats
-          </button>
-        </th>
-      </tr>
 
       <!-- ⭐ NORMALE HEADER-ZEILE -->
       <tr>
@@ -148,8 +141,7 @@ td {
 .sort-row {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
+  gap: 0.75rem;
 }
 
 .sort-label {
@@ -173,22 +165,27 @@ td {
   background-color: #2a2a2a;
 }
 
-.stats-header {
-  text-align: center;
-  padding-bottom: 0.25rem;
-}
-
 .stats-btn {
-  background: transparent;
+  background: #262626;
   color: #9fd3c7;
-  border: 1px solid #3a3a3a;
-  padding: 0.25rem 0.6rem;
-  font-size: 0.8rem;
-  border-radius: 4px;
-  cursor: pointer;
+  padding: 0.45rem 0.9rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
 }
 
 .stats-btn:hover {
-  background: #2a2a2a;
+  background: rgba(159, 211, 199, 0.12);
+  color: #ffffff;
+}
+
+.list-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1.5rem 0;
 }
 </style>
